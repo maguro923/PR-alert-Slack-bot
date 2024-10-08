@@ -1,5 +1,5 @@
 import { PullRequestEvent } from "@octokit/webhooks-types"
-import { onPullRequestOpened } from "./webhookActions";
+import { onPullRequestOpened } from "./webhookActionHandlers";
 
 export function doPost(evt: GoogleAppsScript.Events.DoPost) {
   const prEvt: PullRequestEvent = JSON.parse(evt.postData.contents);
