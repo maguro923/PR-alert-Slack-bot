@@ -23,6 +23,7 @@
     "@octokit/webhooks-types": "^7.6.1",
     "@types/google-apps-script": "^1.0.82",
     "clasp": "^1.0.0",
+    "dotenv": "^16.4.5",
     "esbuild": "^0.20.1",
     "esbuild-gas-plugin": "^0.8.0",
     "typescript": "^5.3.3"
