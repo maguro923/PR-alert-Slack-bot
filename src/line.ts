@@ -1,7 +1,7 @@
 import { Message } from "@line/bot-sdk";
 import { CHANNEL_ACCESS_TOKEN } from "./env";
 
-export function send(to: string, msgs: Message[]){
+export function push(to: string, msgs: Message[]){
     const options: GoogleAppsScript.URL_Fetch.URLFetchRequestOptions = {
         contentType: "application/json",
         method: "post",
