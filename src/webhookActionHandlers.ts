@@ -2,6 +2,7 @@ import { PullRequestClosedEvent, PullRequestOpenedEvent } from "@octokit/webhook
 import { IDS, REPLYTOKEN_SERVER_URL, USE_REPLYTOKEN } from "./env";
 import { push, reply } from "./line";
 import { Message } from "@line/bot-sdk";
+import { log } from "./log";
 
 export function onPullRequestOpened(evt: PullRequestOpenedEvent) {
     IDS.forEach(id => {
@@ -21,10 +22,16 @@ ${evt.pull_request.html_url}`
                 "replyToken": string // https://github.com/GodaHaruki/Line-replytoken-bot
             }[] = JSON.parse(UrlFetchApp.fetch(REPLYTOKEN_SERVER_URL + "?id=" + id).getContentText());
 
-            if (replyTokens.length > 0) reply(replyTokens[0].replyToken, msgs);
-            else push(id, msgs);
+            if (replyTokens.length > 0) {
+                reply(replyTokens[0].replyToken, msgs);
+                log(JSON.stringify({ ...evt, LineApiType: "reply" }))
+            } else {
+                push(id, msgs);
+                log(JSON.stringify({ ...evt, LineApiType: "push" }))
+            }
         } else {
             push(id, msgs)
+            log(JSON.stringify({ ...evt, LineApiType: "push" }))
         }
     })
 }
