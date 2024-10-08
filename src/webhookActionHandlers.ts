@@ -16,14 +16,14 @@ ${evt.pull_request.html_url}`
         }];
 
         if (USE_REPLYTOKEN) {
-            const replyTokens: {
+            const replyToken: {
                 "timestamp": number
                 "id": string
                 "replyToken": string // https://github.com/GodaHaruki/Line-replytoken-bot
-            }[] = JSON.parse(UrlFetchApp.fetch(REPLYTOKEN_SERVER_URL + "?id=" + id).getContentText());
+            } | null = JSON.parse(UrlFetchApp.fetch(REPLYTOKEN_SERVER_URL + "?id=" + id).getContentText());
 
-            if (replyTokens.length > 0) {
-                reply(replyTokens[0].replyToken, msgs);
+            if (replyToken) {
+                reply(replyToken.replyToken, msgs);
                 log(JSON.stringify({ ...evt, LineApiType: "reply" }))
             } else {
                 push(id, msgs);
