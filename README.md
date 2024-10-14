@@ -15,7 +15,7 @@ clasp login
 ...
 clasp create
 ```
-> use "clasp login --no-localhost" for remote
+
 3. modify .clasp.json
 ```diff
 {
